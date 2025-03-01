@@ -1,0 +1,65 @@
+.imgCont {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.imgCont::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(18, 20, 23, 0.5) 0%,
+    rgba(18, 20, 23, 0.5) 100%
+  );
+  pointer-events: none;
+  z-index: 9;
+}
+
+.carImg {
+  border-radius: 14px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heartIcon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 99;
+  cursor: pointer;
+  color: #f2f4f7;
+}
+
+.mainCarInfo {
+  display: flex;
+  padding-right: 11px;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.carDetails {
+  font-size: 12px;
+  line-height: 1.33;
+  color: #8d929a;
+  margin-bottom: 32px;
+}
+
+.carAddInfo:not(:last-child) {
+  padding-right: 6px;
+  border-right: 1px solid #dadde1;
+}
+
+.carAddInfo:not(:first-of-type):not(:nth-of-type(4)) {
+  padding-left: 6px;
+}
+
+.carBtn {
+  width: 100%;
+}

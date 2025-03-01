@@ -1,0 +1,39 @@
+.hero {
+  height: 93vh;
+  background: linear-gradient(-180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("../../assets/hero.jpg") no-repeat center/cover;
+  color: #ffffff;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+@media (min-resolution: 192dpi) {
+  .hero {
+    background: url("../../assets/hero@2x.jpg");
+  }
+}
+
+.heroInfo {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.heroTtl {
+  font-size: 60px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.heroText {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33;
+  margin-bottom: 40px;
+}
+
+.heroBtn {
+  border: none;
+  transition: 250ms ease-out;
+  min-width: 276px;
+}

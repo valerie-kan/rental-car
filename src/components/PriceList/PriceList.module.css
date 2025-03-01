@@ -1,0 +1,19 @@
+.label {
+  display: flex;
+  flex-direction: column;
+}
+.span {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33;
+  color: #8d929a;
+}
+
+.select {
+  border-radius: 12px;
+  padding: 12px;
+  width: 204px;
+  background-color: #f7f7f7;
+  outline: none;
+  /* max-height: 272px; */
+}

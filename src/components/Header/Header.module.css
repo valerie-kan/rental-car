@@ -1,0 +1,22 @@
+.header {
+  /* position: fixed;
+  width: 1440px; */
+  border-bottom: 1px solid #f2f4f7;
+  padding: 24px 120px;
+  background-color: #f2f4f7;
+  display: flex;
+  justify-content: space-between;
+}
+
+.homeLink {
+  margin-right: 32px;
+}
+
+.active {
+  color: #0b44cd;
+}
+
+.homeLink:hover,
+.catalogLink:hover {
+  color: #0b44cd;
+}

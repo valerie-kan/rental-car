@@ -1,0 +1,25 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.span {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33;
+  color: #8d929a;
+}
+
+.select {
+  border-radius: 12px;
+  border: none;
+  padding: 12px;
+  max-width: 204px;
+  background-color: #f7f7f7;
+  outline: none;
+  /* max-height: 272px; */
+}
+
+/* .brandItem {
+  color: #8d929a;
+} */
