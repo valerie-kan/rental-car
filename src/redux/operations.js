@@ -17,19 +17,6 @@ export const getCars = createAsyncThunk(
   }
 );
 
-// export const getCarById = createAsyncThunk(
-//   "cars/getCarById",
-//   async (id, thunkAPI) => {
-//     try {
-//       const response = await axios.get(`/cars/${id}`);
-//       console.log("getCarsById:", response.data);
-//       return response.data;
-//     } catch (e) {
-//       return thunkAPI.rejectWithValue(e.message);
-//     }
-//   }
-// );
-
 export const getBrands = createAsyncThunk(
   "cars/getBrands",
   async (_, thunkAPI) => {

@@ -60,22 +60,6 @@ const carsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       });
-    // .addCase(getCarById.pending, (state) => {
-    //   state.isLoading = true;
-    //   state.error = false;
-    // })
-    // .addCase(getCarById.fulfilled, (state, action) => {
-    //   // console.log(action.payload);
-
-    //   state.isLoading = false;
-    //   state.error = false;
-    //   state.carDetails = action.payload;
-    // })
-    // .addCase(getCarById.rejected, (state, action) => {
-    //   // console.log(action.payload);
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // });
   },
 });
 

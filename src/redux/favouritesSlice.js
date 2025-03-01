@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import localStorage from "redux-persist/es/storage";
 
 const savedCars = () => {
   const savedFavourites = localStorage.getItem("favourites");
