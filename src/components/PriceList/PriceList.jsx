@@ -15,7 +15,6 @@ const PriceList = ({ prices, selectedPrice }) => {
     <label className={css.label}>
       <span className={css.span}>Price/ 1 hour</span>
       <select
-        // defaultValue=""
         className={css.select}
         value={selectedPrice}
         onChange={handlePriceChange}
@@ -23,8 +22,8 @@ const PriceList = ({ prices, selectedPrice }) => {
         <option value="" disabled>
           Choose a price
         </option>
-        {prices.map((price) => (
-          <option value={price} key={price}>
+        {prices.map((price, index) => (
+          <option value={price} key={`${price}-${index}`}>
             {price}
           </option>
         ))}

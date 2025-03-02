@@ -6,6 +6,7 @@ const initialState = {
   cars: [],
   carDetails: null,
   brands: [],
+  allPrices: [],
   filters: {
     brand: "",
     rentalPrice: "",
@@ -42,13 +43,18 @@ const carsSlice = createSlice({
         state.error = false;
       })
       .addCase(getCars.fulfilled, (state, action) => {
-        // console.log(action.payload);
-
         state.isLoading = false;
         state.error = false;
         state.cars = [...state.cars, ...action.payload.cars];
         state.page = Number(action.payload.page);
         state.totalPages = action.payload.totalPages;
+
+        const newPrices = action.payload.cars.map((car) =>
+          Number(car.rentalPrice)
+        );
+        const filteredPrices = [...new Set([...state.allPrices, ...newPrices])];
+        const uniquePrices = filteredPrices.sort((a, b) => a - b);
+        state.allPrices = uniquePrices;
       })
       .addCase(getCars.rejected, (state, action) => {
         console.log(action.payload);
@@ -60,14 +66,11 @@ const carsSlice = createSlice({
         state.error = false;
       })
       .addCase(getCarById.fulfilled, (state, action) => {
-        // console.log(action.payload);
-
         state.isLoading = false;
         state.error = false;
         state.carDetails = action.payload;
       })
       .addCase(getCarById.rejected, (state, action) => {
-        // console.log(action.payload);
         state.isLoading = false;
         state.error = action.payload;
       })
@@ -76,14 +79,11 @@ const carsSlice = createSlice({
         state.error = false;
       })
       .addCase(getBrands.fulfilled, (state, action) => {
-        // console.log(action.payload);
-
         state.isLoading = false;
         state.error = false;
         state.brands = action.payload;
       })
       .addCase(getBrands.rejected, (state, action) => {
-        // console.log(action.payload);
         state.isLoading = false;
         state.error = action.payload;
       });

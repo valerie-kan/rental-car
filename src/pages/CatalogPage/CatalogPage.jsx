@@ -18,17 +18,12 @@ import Loader from "../../components/Loader/Loader";
 const CatalogPage = () => {
   const carsList = useSelector(selectors.selectCars);
   const brandsList = useSelector(selectors.selectBrands);
+  const allPrices = useSelector(selectors.selectAllPrices);
   const filtersList = useSelector(selectors.selectFilters);
   const page = useSelector(selectors.selectPage);
   const totalPages = useSelector(selectors.selectTotalPages);
   const isLoading = useSelector(selectors.selectIsLoading);
   const dispatch = useDispatch();
-
-  // const [priceOptions, setPriceOptions] = useState([]);
-
-  const priceArr = carsList.map((car) => car.rentalPrice); // Масив цін на оренду
-  const priceList = [...new Set(priceArr)]; // Масив без повторюваних значень
-  const sortedPrices = priceList.map(Number).sort((a, b) => a - b); // Відсортований масив
 
   useEffect(() => {
     try {
@@ -42,28 +37,8 @@ const CatalogPage = () => {
 
   const handleSearch = async () => {
     try {
-      // const response = await
       dispatch(resetCars()); // Очищуємо попередні дані перед новим пошуком
       dispatch(getCars({ filters: filtersList }));
-      // console.log(response);
-      // if (response.payload.length > 0) {
-      //   // Якщо є машини, оновлюємо список цін
-      //   const priceArr = response.payload.map((car) => car.rentalPrice);
-      //   const priceList = [...new Set(priceArr)]
-      //     .map(Number)
-      //     .sort((a, b) => a - b);
-      //   setPriceOptions(priceList);
-      // } else {
-      //   // Якщо машин не знайдено, залишаємо попередній список цін
-      //   if (priceOptions.length === 0) {
-      //     // Якщо список цін порожній, можна оновити ціни за всіма машинами
-      //     const priceArr = carsList.map((car) => car.rentalPrice);
-      //     const priceList = [...new Set(priceArr)]
-      //       .map(Number)
-      //       .sort((a, b) => a - b);
-      //     setPriceOptions(priceList);
-      //   }
-      // }
     } catch (error) {
       ErrorToast(error.message || "Request failed! Please try again later");
     }
@@ -80,10 +55,7 @@ const CatalogPage = () => {
       {/* // FILTERS */}
       <div className={css.filterCont}>
         <BrandsList brands={brandsList} />
-        <PriceList
-          selectedPrice={filtersList.rentalPrice}
-          prices={sortedPrices}
-        />
+        <PriceList selectedPrice={filtersList.rentalPrice} prices={allPrices} />
         <CarMileage />
         <button type="button" className={css.searchBtn} onClick={handleSearch}>
           Search

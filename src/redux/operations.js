@@ -9,7 +9,6 @@ export const getCars = createAsyncThunk(
     try {
       const params = new URLSearchParams({ ...filters, page, limit });
       const response = await axios.get(`/cars?${params}`);
-      // console.log(response.data);
       return {
         cars: response.data.cars,
         totalCars: response.data.totalCars,
@@ -27,7 +26,6 @@ export const getCarById = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await axios.get(`/cars/${id}`);
-      // console.log("getCarsById:", response.data);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

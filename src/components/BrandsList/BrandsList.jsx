@@ -8,7 +8,7 @@ const BrandsList = ({ brands }) => {
 
   const handleBrandChange = (e) => {
     const selectedBrand = e.target.value;
-    dispatch(setFilters({ brand: selectedBrand })); // Оновлюємо фільтри при зміні
+    dispatch(setFilters({ brand: selectedBrand }));
   };
 
   return (

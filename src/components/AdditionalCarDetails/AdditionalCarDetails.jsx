@@ -11,6 +11,7 @@ import gear from "../../assets/gear.svg";
 const AdditionalCarDetails = ({ car }) => {
   return (
     <div className={css.addInfoWrapper}>
+      {/* // Rental Conditions */}
       <div>
         <h3 className={css.addInfoTitle}>Rental Conditions:</h3>
         {car.rentalConditions.map((condition) => (
@@ -19,6 +20,7 @@ const AdditionalCarDetails = ({ car }) => {
           </span>
         ))}
       </div>
+      {/* // Car Specifications */}
       <div>
         <h3 className={css.addInfoTitle}>Car Specifications:</h3>
         <span className={css.addInfoText}>
@@ -39,6 +41,7 @@ const AdditionalCarDetails = ({ car }) => {
           Engine Size: {car.engineSize}
         </span>
       </div>
+      {/* // Accessories and functionalities */}
       <div>
         <h3 className={css.addInfoTitle}>Accessories and functionalities:</h3>
         {car.accessories.map((accessory) => (
