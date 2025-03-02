@@ -1,5 +1,5 @@
 .carsList {
-  margin: 0 120px;
+  margin-bottom: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,5 +10,4 @@
 
 .carItem {
   width: calc((100% - 32px * 3) / 4);
-  /* height: 424px; */
 }

@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import css from "./CarMileage.module.css";
+
 import { setFilters } from "../../redux/carsSlice";
 
 const CarMileage = () => {
   const dispatch = useDispatch();
 
   const prefixMin = "From "; // початкове значення
-  const prefixMax = "To "; // початкове значення
+  const prefixMax = "To ";
 
   const [minMileage, setminMileage] = useState(prefixMin);
   const [maxMileage, setmaxMileage] = useState(prefixMax);
@@ -32,7 +33,7 @@ const CarMileage = () => {
   return (
     <div className={css.mileageCont}>
       <span className={css.span}>Car mileage / km</span>
-      <label className={css.label}>
+      <label>
         <input
           type="text"
           className={css.input}

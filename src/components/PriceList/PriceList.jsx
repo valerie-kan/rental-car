@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
-import { setFilters } from "../../redux/carsSlice";
+
 import css from "../BrandsList/BrandsList.module.css";
+
+import { setFilters } from "../../redux/carsSlice";
 
 const PriceList = ({ prices, selectedPrice }) => {
   const dispatch = useDispatch();
@@ -18,11 +20,11 @@ const PriceList = ({ prices, selectedPrice }) => {
         value={selectedPrice}
         onChange={handlePriceChange}
       >
-        <option className={css.item} value="" disabled>
+        <option value="" disabled>
           Choose a price
         </option>
         {prices.map((price) => (
-          <option className={css.item} value={price} key={price}>
+          <option value={price} key={price}>
             {price}
           </option>
         ))}

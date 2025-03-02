@@ -1,17 +1,16 @@
 import { ReactSVG } from "react-svg";
+import { useNavigate } from "react-router-dom";
 
 import css from "./CarItem.module.css";
 
 import heart from "../../assets/heart.svg";
 import heartActive from "../../assets/heart-blue.svg";
-// import { useNavigate } from "react-router-dom";
 
-const CarItem = ({ car, toggleFavourite, isFavourite, readMoreBtnClick }) => {
-  // const navigate = useNavigate();
+const CarItem = ({ car, toggleFavourite, isFavourite }) => {
+  const navigate = useNavigate();
 
   return (
     <>
-      {/* <div className={css.itemCont}> */}
       <div className={css.imgCont}>
         <img src={car.img} alt="Car photo" className={css.carImg} />
         {isFavourite ? (
@@ -28,6 +27,7 @@ const CarItem = ({ car, toggleFavourite, isFavourite, readMoreBtnClick }) => {
           />
         )}
       </div>
+      {/* // CAR INFO */}
       <div className={css.mainCarInfo}>
         <p>
           {car.brand} <span style={{ color: "#3470ff" }}>{car.model}</span>,{" "}
@@ -50,10 +50,9 @@ const CarItem = ({ car, toggleFavourite, isFavourite, readMoreBtnClick }) => {
           {car.mileage.toLocaleString("en-US").replace(/,/g, " ")} km
         </span>
       </div>
-      {/* </div> */}
+      {/* // READ MORE BTN */}
       <button
-        // onClick={() => navigate(`/catalog/${car.id}`)}
-        onClick={() => readMoreBtnClick(car)}
+        onClick={() => navigate(`/catalog/${car.id}`)}
         className={css.carBtn}
       >
         Read more

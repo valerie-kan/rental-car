@@ -1,9 +1,13 @@
+.catalogWrapper {
+  margin: 84px 120px;
+}
+
 .filterCont {
   display: flex;
-  gap: 16px;
-  margin-top: 84px;
-  margin-bottom: 56px;
   justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 56px;
 }
 
 .searchBtn {
@@ -12,23 +16,23 @@
   align-self: flex-end;
 }
 
-.loadMoreBtn {
-  border: 1px solid #3470ff;
-  background-color: inherit;
-  width: 156px;
-  color: currentColor;
-  margin: 80px auto;
-  display: block;
-}
-
-.loadMoreBtn:hover {
-  border-color: #0b44cd;
-  background-color: inherit;
-}
-
 .noCarsMess {
   color: #3470ff;
   font-weight: 600;
   font-size: 18px;
   text-align: center;
+}
+
+.loadMoreBtn {
+  border: 1px solid #3470ff;
+  background-color: inherit;
+  width: 156px;
+  color: currentColor;
+  display: block;
+  margin: 0 auto;
+}
+
+.loadMoreBtn:hover {
+  border-color: #0b44cd;
+  background-color: inherit;
 }

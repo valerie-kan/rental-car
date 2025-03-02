@@ -1,18 +1,17 @@
+import { useDispatch, useSelector } from "react-redux";
+
 import css from "./CarsList.module.css";
 
-import { useDispatch, useSelector } from "react-redux";
-import { addFavourite, removeFavourite } from "../../redux/favouritesSlice";
-import CarItem from "../CarItem/CarItem";
 import { ErrorToast } from "../../utils/errorToast";
-import { useNavigate } from "react-router-dom";
+
+import { addFavourite, removeFavourite } from "../../redux/favouritesSlice";
 import { selectFavourites } from "../../redux/selectors";
 
-// import { getCarById } from "../../redux/operations.js";
+import CarItem from "../CarItem/CarItem";
 
 const CarsList = ({ cars }) => {
   const favourites = useSelector(selectFavourites);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const toggleFavourite = (car) => {
     try {
@@ -26,20 +25,8 @@ const CarsList = ({ cars }) => {
     }
   };
 
-  const readMoreBtnClick = (car) => {
-    localStorage.setItem("carDetails", JSON.stringify(car));
-    navigate(`/catalog/${car.id}`);
-    // try {
-    //   dispatch(getCarById(car.id));
-    // } catch (error) {
-    //   console.log("Err occured");
-    //   ErrorToast(error.message || "Car is not found!");
-    // }
-  };
-
   return (
     <ul className={css.carsList}>
-      {/* {Array.isArray(cars) && */}
       {cars.map((car) => {
         const isFavourite = favourites.some((item) => item.id === car.id);
         return (
@@ -48,7 +35,6 @@ const CarsList = ({ cars }) => {
               car={car}
               toggleFavourite={toggleFavourite}
               isFavourite={isFavourite}
-              readMoreBtnClick={readMoreBtnClick}
             />
           </li>
         );

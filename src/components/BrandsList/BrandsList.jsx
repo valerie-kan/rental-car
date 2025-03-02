@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { setFilters } from "../../redux/carsSlice";
+
 import css from "./BrandsList.module.css";
 
 const BrandsList = ({ brands }) => {
@@ -16,14 +17,13 @@ const BrandsList = ({ brands }) => {
       <select
         defaultValue=""
         className={css.select}
-        // value={selectedBrand}
         onChange={handleBrandChange}
       >
-        <option className={css.item} value="" disabled>
+        <option value="" disabled>
           Choose a brand
         </option>
         {brands.map((brand) => (
-          <option className={css.item} value={brand} key={brand}>
+          <option value={brand} key={brand}>
             {brand}
           </option>
         ))}

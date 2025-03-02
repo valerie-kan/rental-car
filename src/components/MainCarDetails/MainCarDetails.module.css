@@ -1,0 +1,28 @@
+.mainCarInfo {
+  margin-bottom: 68px;
+}
+
+.carTitle {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33;
+  margin-bottom: 8px;
+}
+
+.locationAndMileageWrapper {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.locationWrapper {
+  display: flex;
+  gap: 4px;
+}
+
+.price {
+  font-size: 24px;
+  line-height: 1.33;
+  color: #3470ff;
+  margin-bottom: 32px;
+}

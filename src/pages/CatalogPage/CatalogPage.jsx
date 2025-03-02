@@ -1,22 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import css from "./CatalogPage.module.css";
 
 import { ErrorToast } from "../../utils/errorToast";
 
-import { selectBrands, selectCars, selectFilters } from "../../redux/selectors";
+import * as selectors from "../../redux/selectors";
+import { resetCars } from "../../redux/carsSlice";
 import { getBrands, getCars } from "../../redux/operations";
 
 import CarsList from "../../components/CarsList/CarsList";
 import BrandsList from "../../components/BrandsList/BrandsList";
 import PriceList from "../../components/PriceList/PriceList";
 import CarMileage from "../../components/CarMileage/CarMileage";
+import Loader from "../../components/Loader/Loader";
 
 const CatalogPage = () => {
-  const carsList = useSelector(selectCars);
-  const brandsList = useSelector(selectBrands);
-  const filtersList = useSelector(selectFilters);
+  const carsList = useSelector(selectors.selectCars);
+  const brandsList = useSelector(selectors.selectBrands);
+  const filtersList = useSelector(selectors.selectFilters);
+  const page = useSelector(selectors.selectPage);
+  const totalPages = useSelector(selectors.selectTotalPages);
+  const isLoading = useSelector(selectors.selectIsLoading);
   const dispatch = useDispatch();
 
   // const [priceOptions, setPriceOptions] = useState([]);
@@ -27,7 +32,8 @@ const CatalogPage = () => {
 
   useEffect(() => {
     try {
-      dispatch(getCars());
+      dispatch(resetCars());
+      dispatch(getCars({ page: 1 }));
       dispatch(getBrands());
     } catch (error) {
       ErrorToast(error.message || "Request failed! Please try again later");
@@ -37,7 +43,8 @@ const CatalogPage = () => {
   const handleSearch = async () => {
     try {
       // const response = await
-      dispatch(getCars(filtersList));
+      dispatch(resetCars()); // Очищуємо попередні дані перед новим пошуком
+      dispatch(getCars({ filters: filtersList }));
       // console.log(response);
       // if (response.payload.length > 0) {
       //   // Якщо є машини, оновлюємо список цін
@@ -62,8 +69,15 @@ const CatalogPage = () => {
     }
   };
 
+  const onLoadMoreClick = () => {
+    if (page < totalPages) {
+      dispatch(getCars({ filters: filtersList, page: page + 1 }));
+    }
+  };
+
   return (
-    <>
+    <div className={css.catalogWrapper}>
+      {/* // FILTERS */}
       <div className={css.filterCont}>
         <BrandsList brands={brandsList} />
         <PriceList
@@ -75,16 +89,25 @@ const CatalogPage = () => {
           Search
         </button>
       </div>
-      {carsList.length === 0 && (
+      {/* // CARS LIST */}
+      {isLoading && <Loader />}
+      {!isLoading && carsList.length === 0 && (
         <p className={css.noCarsMess}>
           Sorry! We don't have any cars according to your search parameters
         </p>
       )}
       <CarsList cars={carsList} />
-      <button type="button" className={css.loadMoreBtn}>
-        Load more
-      </button>
-    </>
+      {/* // LOAD MORE BTN */}
+      {page < totalPages && (
+        <button
+          type="button"
+          className={css.loadMoreBtn}
+          onClick={onLoadMoreClick}
+        >
+          Load more
+        </button>
+      )}
+    </div>
   );
 };
 

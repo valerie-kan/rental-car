@@ -1,22 +1,21 @@
-import { useEffect, useState } from "react";
-import { ReactSVG } from "react-svg";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { Form, Formik } from "formik";
 
 import css from "./CarDetailsPage.module.css";
 
-import locationIcon from "../../assets/location.svg";
-import checkIcon from "../../assets/check-circle.svg";
-import calendar from "../../assets/calendar.svg";
-import carIcon from "../../assets/car.svg";
-import fuelPump from "../../assets/fuel-pump.svg";
-import gear from "../../assets/gear.svg";
-
 import { ErrorToast } from "../../utils/errorToast";
 import { SuccessToast } from "../../utils/successToast";
-import { Form, Formik } from "formik";
-
 import { CarDetailsSchema } from "../../utils/schemas";
 
+import { getCarById } from "../../redux/operations";
+import { selectCarDetails, selectIsLoading } from "../../redux/selectors";
+
 import Input from "../../components/Input/Input";
+import Loader from "../../components/Loader/Loader";
+import AdditionalCarDetails from "../../components/AdditionalCarDetails/AdditionalCarDetails";
+import MainCarDetails from "../../components/MainCarDetails/MainCarDetails";
 
 const INITIAL_VALUES = {
   name: "",
@@ -26,33 +25,21 @@ const INITIAL_VALUES = {
 };
 
 const CarDetailsPage = () => {
-  // const dispatch = useDispatch();
-  // const { id } = useParams();
-  // // console.log(id);
-  // const cars = useSelector(selectCars);
-  // console.log(car);
-  const [car, setCar] = useState(null);
-
-  // useEffect(async () => {
-  //   try {
-  //     dispatch(getCarById(car.id));
-  //   } catch (error) {
-  //     ErrorToast(error.message || "Car is not found!");
-  //   }
-  // }, [dispatch]);
-  // const car = cars.find((item) => item.id === id);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const car = useSelector(selectCarDetails);
+  const isLoading = useSelector(selectIsLoading);
 
   useEffect(() => {
-    const carDetails = localStorage.getItem("carDetails");
-    // console.log(carDetails);
-
-    if (carDetails) {
-      setCar(JSON.parse(carDetails));
-    } else {
-      ErrorToast("Car is not found!"); // Якщо немає даних, показуємо тост
-    }
-    // console.log(carDetails);
-  }, []);
+    const getCarDetails = async () => {
+      try {
+        dispatch(getCarById(id));
+      } catch (error) {
+        ErrorToast(error.message || "Car is not found!");
+      }
+    };
+    getCarDetails();
+  }, [dispatch, id]);
 
   const handleSubmit = (values, actions) => {
     SuccessToast("Congrats! You have booked selected car");
@@ -61,14 +48,15 @@ const CarDetailsPage = () => {
 
   return (
     <>
-      {!car && <p className={css.loading}>Loading car details...</p>}
+      {isLoading && <Loader />}
       {car && (
         <div className={css.carDetails}>
-          {/* // IMG AND FORM */}
+          {/* // IMG */}
           <div className={css.imgAndFormWrapper}>
             <div className={css.imgCont}>
               <img className={css.img} src={car.img} alt="Selected car photo" />
             </div>
+            {/* // FORM */}
             <Formik
               initialValues={INITIAL_VALUES}
               validationSchema={CarDetailsSchema}
@@ -91,76 +79,10 @@ const CarDetailsPage = () => {
               </Form>
             </Formik>
           </div>
+          {/* // CAR INFO */}
           <div className={css.carInfoWrapper}>
-            {/* // MAIN CAR DETAILS */}
-            <div className={css.mainCarInfo}>
-              <h2 className={css.carTitle}>
-                {car.brand} {car.model}, {car.year}
-              </h2>
-              <div className={css.locationAndMileageWrapper}>
-                <span className={css.locationWrapper}>
-                  <ReactSVG src={locationIcon} className={css.icon} />
-                  {car.address.split(",")[1].trim()},{" "}
-                  {car.address.split(",")[2].trim()}
-                </span>
-                <span>
-                  Mileage:{" "}
-                  {car.mileage.toLocaleString("en-US").replace(/,/g, " ")} km
-                </span>
-              </div>
-              <p className={css.price}>${car.rentalPrice}</p>
-              <p>{car.description}</p>
-            </div>
-            {/* // ADDITIONAL CAR DETAILS */}
-            <div className={css.addInfoWrapper}>
-              <div>
-                <h3 className={css.addInfoTitle}>Rental Conditions:</h3>
-                {car.rentalConditions.map((condition) => (
-                  <span key={condition} className={css.addInfoText}>
-                    <ReactSVG src={checkIcon} className={css.icon} />{" "}
-                    {condition}
-                  </span>
-                ))}
-              </div>
-              <div>
-                <h3 className={css.addInfoTitle}>Car Specifications:</h3>
-                <span className={css.addInfoText}>
-                  <ReactSVG src={calendar} className={css.icon} />
-                  Year: {car.year}
-                </span>
-                <span className={css.addInfoText}>
-                  <ReactSVG src={carIcon} className={css.icon} />
-                  Type:{" "}
-                  {car.type.charAt(0).toUpperCase() +
-                    car.type.slice(1).toLowerCase()}
-                </span>
-                <span className={css.addInfoText}>
-                  <ReactSVG src={fuelPump} className={css.icon} />
-                  Fuel Consumption: {car.fuelConsumption}
-                </span>
-                <span className={css.addInfoText}>
-                  <ReactSVG src={gear} className={css.icon} />
-                  Engine Size: {car.engineSize}
-                </span>
-              </div>
-              <div>
-                <h3 className={css.addInfoTitle}>
-                  Accessories and functionalities:
-                </h3>
-                {car.accessories.map((accessory) => (
-                  <span key={accessory} className={css.addInfoText}>
-                    <ReactSVG src={checkIcon} className={css.icon} />
-                    {accessory}
-                  </span>
-                ))}
-                {car.functionalities.map((functionality) => (
-                  <span key={functionality} className={css.addInfoText}>
-                    <ReactSVG src={checkIcon} className={css.icon} />
-                    {functionality}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <MainCarDetails car={car} />
+            <AdditionalCarDetails car={car} />
           </div>
         </div>
       )}

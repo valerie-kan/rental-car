@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getBrands, getCars } from "./operations";
+import { getBrands, getCarById, getCars } from "./operations";
 
 const initialState = {
   cars: [],
+  carDetails: null,
   brands: [],
   filters: {
     brand: "",
@@ -11,6 +12,9 @@ const initialState = {
     minMileage: "",
     maxMileage: "",
   },
+  page: 1,
+  limit: 8,
+  totalPages: 1,
   error: null,
   isLoading: false,
 };
@@ -25,6 +29,11 @@ const carsSlice = createSlice({
     resetFilters: (state) => {
       state.filters = initialState.filters;
     },
+    resetCars(state) {
+      state.cars = [];
+      state.page = 1;
+      state.totalPages = 1;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -37,9 +46,27 @@ const carsSlice = createSlice({
 
         state.isLoading = false;
         state.error = false;
-        state.cars = action.payload;
+        state.cars = [...state.cars, ...action.payload.cars];
+        state.page = Number(action.payload.page);
+        state.totalPages = action.payload.totalPages;
       })
       .addCase(getCars.rejected, (state, action) => {
+        console.log(action.payload);
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getCarById.pending, (state) => {
+        state.isLoading = true;
+        state.error = false;
+      })
+      .addCase(getCarById.fulfilled, (state, action) => {
+        // console.log(action.payload);
+
+        state.isLoading = false;
+        state.error = false;
+        state.carDetails = action.payload;
+      })
+      .addCase(getCarById.rejected, (state, action) => {
         // console.log(action.payload);
         state.isLoading = false;
         state.error = action.payload;
@@ -63,6 +90,6 @@ const carsSlice = createSlice({
   },
 });
 
-export const { setFilters, resetFilters } = carsSlice.actions;
+export const { setFilters, resetFilters, resetCars } = carsSlice.actions;
 
 export const carsReducer = carsSlice.reducer;

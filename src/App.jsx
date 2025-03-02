@@ -1,42 +1,27 @@
-import { Suspense, useState } from "react";
+import { Suspense, lazy } from "react";
 
 import { Route, Routes } from "react-router-dom";
 
 import SharedLayout from "./components/SharedLayout";
-import HomePage from "./pages/HomePage/HomePage";
-import CatalogPage from "./pages/CatalogPage/CatalogPage";
-import CarDetailsPage from "./pages/CarDetailsPage/CarDetailsPage";
+import Loader from "./components/Loader/Loader";
+
+const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
+const CatalogPage = lazy(() => import("./pages/CatalogPage/CatalogPage"));
+const CarDetailsPage = lazy(() =>
+  import("./pages/CarDetailsPage/CarDetailsPage")
+);
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<SharedLayout />}>
-        <Route
-          index
-          element={
-            <Suspense fallback={<div>Loading...</div>}>
-              <HomePage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="catalog"
-          element={
-            <Suspense fallback={<div>Loading...</div>}>
-              <CatalogPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="catalog/:id"
-          element={
-            <Suspense fallback={<div>Loading...</div>}>
-              <CarDetailsPage />
-            </Suspense>
-          }
-        />
-      </Route>
-    </Routes>
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="catalog" element={<CatalogPage />} />
+          <Route path="catalog/:id" element={<CarDetailsPage />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }
 
