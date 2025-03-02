@@ -1,34 +1,33 @@
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-
-import css from "../BrandsList/BrandsList.module.css";
 
 import { setFilters } from "../../redux/carsSlice";
 
-const PriceList = ({ prices, selectedPrice }) => {
+import SelectInput from "../SelectInput/SelectInput";
+
+const PriceList = ({
+  selectRef,
+  toggleDropdown,
+  selectedItems,
+  isOpen,
+  prices,
+  handleSelect,
+}) => {
   const dispatch = useDispatch();
 
-  const handlePriceChange = (e) => {
-    dispatch(setFilters({ rentalPrice: e.target.value }));
-  };
+  useEffect(() => {
+    dispatch(setFilters({ rentalPrice: selectedItems }));
+  }, [selectedItems, dispatch]);
 
   return (
-    <label className={css.label}>
-      <span className={css.span}>Price/ 1 hour</span>
-      <select
-        className={css.select}
-        value={selectedPrice}
-        onChange={handlePriceChange}
-      >
-        <option value="" disabled>
-          Choose a price
-        </option>
-        {prices.map((price, index) => (
-          <option value={price} key={`${price}-${index}`}>
-            {price}
-          </option>
-        ))}
-      </select>
-    </label>
+    <SelectInput
+      selectRef={selectRef}
+      toggleDropdown={toggleDropdown}
+      selectedItems={selectedItems}
+      isOpen={isOpen}
+      items={prices}
+      handleSelect={handleSelect}
+    />
   );
 };
 

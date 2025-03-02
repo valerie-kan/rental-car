@@ -4,8 +4,6 @@ export const selectCarDetails = (state) => state.cars.carDetails;
 
 export const selectBrands = (state) => state.cars.brands;
 
-export const selectAllPrices = (state) => state.cars.allPrices;
-
 export const selectFilters = (state) => state.cars.filters;
 
 export const selectPage = (state) => state.cars.page;

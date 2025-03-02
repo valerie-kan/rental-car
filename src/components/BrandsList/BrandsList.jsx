@@ -1,34 +1,33 @@
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+
 import { setFilters } from "../../redux/carsSlice";
 
-import css from "./BrandsList.module.css";
+import SelectInput from "../SelectInput/SelectInput";
 
-const BrandsList = ({ brands }) => {
+const BrandsList = ({
+  selectRef,
+  toggleDropdown,
+  selectedItems,
+  isOpen,
+  brands,
+  handleSelect,
+}) => {
   const dispatch = useDispatch();
 
-  const handleBrandChange = (e) => {
-    const selectedBrand = e.target.value;
-    dispatch(setFilters({ brand: selectedBrand }));
-  };
+  useEffect(() => {
+    dispatch(setFilters({ brand: selectedItems }));
+  }, [selectedItems, dispatch]);
 
   return (
-    <label className={css.label}>
-      <span className={css.span}>Car brand</span>
-      <select
-        defaultValue=""
-        className={css.select}
-        onChange={handleBrandChange}
-      >
-        <option value="" disabled>
-          Choose a brand
-        </option>
-        {brands.map((brand) => (
-          <option value={brand} key={brand}>
-            {brand}
-          </option>
-        ))}
-      </select>
-    </label>
+    <SelectInput
+      selectRef={selectRef}
+      toggleDropdown={toggleDropdown}
+      selectedItems={selectedItems}
+      isOpen={isOpen}
+      items={brands}
+      handleSelect={handleSelect}
+    />
   );
 };
 
