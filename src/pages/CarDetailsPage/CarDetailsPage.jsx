@@ -75,7 +75,9 @@ const CarDetailsPage = () => {
                   <Input type="text" name="date" placeholder="Booking date" />
                   <Input as="textarea" name="comment" placeholder="Comment" />
                 </div>
-                <button className={css.submitBtn}>Send</button>
+                <button className={css.submitBtn} type="submit">
+                  Send
+                </button>
               </Form>
             </Formik>
           </div>

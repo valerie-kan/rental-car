@@ -13,7 +13,7 @@ const initialState = {
     maxMileage: "",
   },
   page: 1,
-  limit: 12,
+  limit: 10,
   totalPages: 1,
   error: null,
   isLoading: false,
@@ -49,7 +49,6 @@ const carsSlice = createSlice({
         state.totalPages = action.payload.totalPages;
       })
       .addCase(getCars.rejected, (state, action) => {
-        console.log(action.payload);
         state.isLoading = false;
         state.error = action.payload;
       })

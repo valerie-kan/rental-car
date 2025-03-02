@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import css from "./CatalogPage.module.css";
@@ -24,33 +24,8 @@ const CatalogPage = () => {
   const isLoading = useSelector(selectors.selectIsLoading);
   const dispatch = useDispatch();
 
-  //Логіка для селектів
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedItems, setSelectedItems] = useState([]);
-  const selectRef = useRef(null);
+  const prices = Array.from({ length: 13 }, (_, index) => 30 + index * 10); // Масив цін для дропдауна
 
-  const prices = Array.from({ length: 13 }, (_, index) => 30 + index * 10);
-
-  const toggleDropdown = () => setIsOpen((prev) => !prev);
-
-  const handleSelect = (item) => {
-    setSelectedItems((prev) =>
-      prev.includes(item) ? prev.filter((p) => p !== item) : [...prev, item]
-    );
-  };
-
-  // Закриваємо дропдаун при кліку поза ним
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (selectRef.current && !selectRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  // Логіка роботи з колекцією
   useEffect(() => {
     try {
       dispatch(resetCars());
@@ -80,22 +55,8 @@ const CatalogPage = () => {
     <div className={css.catalogWrapper}>
       {/* // FILTERS */}
       <div className={css.filterCont}>
-        <BrandsList
-          brands={brandsList}
-          selectRef={selectRef}
-          toggleDropdown={toggleDropdown}
-          selectedItems={selectedItems}
-          isOpen={isOpen}
-          handleSelect={handleSelect}
-        />
-        <PriceList
-          prices={prices}
-          selectRef={selectRef}
-          toggleDropdown={toggleDropdown}
-          selectedItems={selectedItems}
-          isOpen={isOpen}
-          handleSelect={handleSelect}
-        />
+        <BrandsList brands={brandsList} />
+        <PriceList prices={prices} />
         <CarMileage />
         <button type="button" className={css.searchBtn} onClick={handleSearch}>
           Search
