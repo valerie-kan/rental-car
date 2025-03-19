@@ -20,7 +20,7 @@
   align-items: center;
   border-radius: 12px;
   padding: 12px;
-  width: 204px;
+  max-width: 204px;
   background-color: #f7f7f7;
   cursor: pointer;
   color: #8d929a;

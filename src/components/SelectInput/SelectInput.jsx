@@ -1,6 +1,6 @@
 import { ReactSVG } from "react-svg";
 
-import clsx from "clsx";
+// import clsx from "clsx";
 import css from "./SelectInput.module.css";
 
 import arrowDown from "../../assets/arrow-down.svg";
@@ -9,7 +9,7 @@ import arrowUp from "../../assets/arrow-up.svg";
 const SelectInput = ({
   selectRef,
   toggleDropdown,
-  selectedItems,
+  selectedItem,
   isOpen,
   items,
   handleSelect,
@@ -23,9 +23,7 @@ const SelectInput = ({
         {/* // SELECT */}
         <div className={css.customSelect} onClick={toggleDropdown}>
           <div className={css.selected}>
-            {selectedItems.length > 0
-              ? selectedItems.join(", ")
-              : `Choose a ${category}`}
+            {selectedItem ? selectedItem : `Choose a ${category}`}
           </div>
           {isOpen ? (
             <ReactSVG src={arrowUp} className={css.arrow} />
@@ -39,10 +37,7 @@ const SelectInput = ({
             {items.map((item) => (
               <li
                 key={item}
-                className={clsx(
-                  css.option,
-                  selectedItems.includes(item) && css.selectedOption
-                )}
+                className={css.option}
                 onClick={() => handleSelect(item)}
               >
                 {item}

@@ -4,8 +4,11 @@ import css from "./CarsList.module.css";
 
 import { ErrorToast } from "../../utils/errorToast";
 
-import { addFavourite, removeFavourite } from "../../redux/favouritesSlice";
-import { selectFavourites } from "../../redux/selectors";
+import {
+  addFavourite,
+  removeFavourite,
+} from "../../redux/favourites/favouritesSlice";
+import { selectFavourites } from "../../redux/favourites/selectors";
 
 import CarItem from "../CarItem/CarItem";
 

@@ -9,8 +9,8 @@ import { ErrorToast } from "../../utils/errorToast";
 import { SuccessToast } from "../../utils/successToast";
 import { CarDetailsSchema } from "../../utils/schemas";
 
-import { getCarById } from "../../redux/operations";
-import { selectCarDetails, selectIsLoading } from "../../redux/selectors";
+import { getCarById } from "../../redux/cars/operations";
+import { selectCarDetails, selectIsLoading } from "../../redux/cars/selectors";
 
 import Input from "../../components/Input/Input";
 import Loader from "../../components/Loader/Loader";

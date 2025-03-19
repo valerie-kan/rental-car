@@ -1,27 +1,26 @@
 import { useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 
-import { setFilters } from "../../redux/carsSlice";
+import { setFilters } from "../../redux/filters/filterSlice";
 
 import SelectInput from "../SelectInput/SelectInput";
 
 const BrandsList = ({ brands }) => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [selectedBrand, setSelectedBrand] = useState("");
   const selectRef = useRef(null);
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   const handleSelect = (item) => {
-    setSelectedBrands((prev) =>
-      prev.includes(item) ? prev.filter((p) => p !== item) : [...prev, item]
-    );
+    setSelectedBrand(item);
+    setIsOpen(false);
   };
 
   useEffect(() => {
-    dispatch(setFilters({ brand: selectedBrands }));
-  }, [selectedBrands, dispatch]);
+    dispatch(setFilters({ brand: selectedBrand }));
+  }, [selectedBrand, dispatch]);
 
   // Закриваємо дропдаун при кліку поза ним
   useEffect(() => {
@@ -38,7 +37,7 @@ const BrandsList = ({ brands }) => {
     <SelectInput
       selectRef={selectRef}
       toggleDropdown={toggleDropdown}
-      selectedItems={selectedBrands}
+      selectedItem={selectedBrand}
       isOpen={isOpen}
       items={brands}
       handleSelect={handleSelect}

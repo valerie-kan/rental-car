@@ -1,12 +1,21 @@
 .carsList {
   margin-bottom: 80px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
-  column-gap: 32px;
-  row-gap: 48px;
+  gap: 32px;
 }
 
 .carItem {
-  width: calc((100% - 32px * 3) / 4);
+  width: 280px;
+}
+
+@media screen and (min-width: 768px) {
+  .carsList {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 32px;
+    row-gap: 48px;
+  }
 }

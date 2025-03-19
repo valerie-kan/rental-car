@@ -1,27 +1,30 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { setFilters } from "../../redux/carsSlice";
+import { setFilters } from "../../redux/filters/filterSlice";
 
 import SelectInput from "../SelectInput/SelectInput";
+// import { selectFilters } from "../../redux/filters/selectors";
 
 const PriceList = ({ prices }) => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedPrices, setSelectedPrices] = useState([]);
+  const [selectedPrice, setSelectedPrice] = useState("");
   const selectRef = useRef(null);
+  // console.log(filtersList);
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   const handleSelect = (item) => {
-    setSelectedPrices((prev) =>
-      prev.includes(item) ? prev.filter((p) => p !== item) : [...prev, item]
-    );
+    if (item) {
+      setSelectedPrice(item);
+    }
+    setIsOpen(false);
   };
 
   useEffect(() => {
-    dispatch(setFilters({ rentalPrice: selectedPrices }));
-  }, [selectedPrices, dispatch]);
+    dispatch(setFilters({ rentalPrice: selectedPrice }));
+  }, [selectedPrice, dispatch]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -29,6 +32,7 @@ const PriceList = ({ prices }) => {
         setIsOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -37,7 +41,7 @@ const PriceList = ({ prices }) => {
     <SelectInput
       selectRef={selectRef}
       toggleDropdown={toggleDropdown}
-      selectedItems={selectedPrices}
+      selectedItem={selectedPrice}
       isOpen={isOpen}
       items={prices}
       handleSelect={handleSelect}

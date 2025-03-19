@@ -32,15 +32,3 @@ export const getCarById = createAsyncThunk(
     }
   }
 );
-
-export const getBrands = createAsyncThunk(
-  "cars/getBrands",
-  async (_, thunkAPI) => {
-    try {
-      const response = await axios.get("/brands");
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
-    }
-  }
-);

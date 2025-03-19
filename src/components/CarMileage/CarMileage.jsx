@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import css from "./CarMileage.module.css";
 
-import { setFilters } from "../../redux/carsSlice";
+import { setFilters } from "../../redux/filters/filterSlice";
 
 const CarMileage = () => {
   const dispatch = useDispatch();

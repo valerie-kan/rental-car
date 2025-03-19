@@ -5,9 +5,11 @@ import css from "./CatalogPage.module.css";
 
 import { ErrorToast } from "../../utils/errorToast";
 
-import * as selectors from "../../redux/selectors";
-import { resetCars } from "../../redux/carsSlice";
-import { getBrands, getCars } from "../../redux/operations";
+import * as carSelectors from "../../redux/cars/selectors";
+import * as filterSelectors from "../../redux/filters/selectors";
+import { resetCars } from "../../redux/cars/carsSlice";
+import { getBrands } from "../../redux/filters/operations";
+import { getCars } from "../../redux/cars/operations";
 
 import CarsList from "../../components/CarsList/CarsList";
 import BrandsList from "../../components/BrandsList/BrandsList";
@@ -16,15 +18,22 @@ import CarMileage from "../../components/CarMileage/CarMileage";
 import Loader from "../../components/Loader/Loader";
 
 const CatalogPage = () => {
-  const carsList = useSelector(selectors.selectCars);
-  const brandsList = useSelector(selectors.selectBrands);
-  const filtersList = useSelector(selectors.selectFilters);
-  const page = useSelector(selectors.selectPage);
-  const totalPages = useSelector(selectors.selectTotalPages);
-  const isLoading = useSelector(selectors.selectIsLoading);
+  const carsList = useSelector(carSelectors.selectCars);
+  const brandsList = useSelector(filterSelectors.selectBrands);
+  const filtersList = useSelector(filterSelectors.selectFilters);
+  const page = useSelector(carSelectors.selectPage);
+  const totalPages = useSelector(carSelectors.selectTotalPages);
+  const isLoading = useSelector(carSelectors.selectIsLoading);
   const dispatch = useDispatch();
+  // console.log(filtersList);
 
-  const prices = Array.from({ length: 13 }, (_, index) => 30 + index * 10); // Масив цін для дропдауна
+  // const [selectedFilters, setSelectedFilters] = useState(filtersList);
+
+  const prices = Array.from({ length: 18 }, (_, index) => 30 + index * 10); // Масив цін для дропдауна
+  // const formatNumberWithCommas = (value) => {
+  //   if (!value) return value;
+  //   return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  // };
 
   useEffect(() => {
     try {
@@ -34,7 +43,17 @@ const CatalogPage = () => {
     } catch (error) {
       ErrorToast(error.message || "Request failed! Please try again later");
     }
+
+    // setSelectedFilters((prev) => ({
+    //   ...prev,
+    //   minMileage: formatNumberWithCommas(prev.minMileage),
+    //   maxMileage: formatNumberWithCommas(prev.maxMileage),
+    // }));
   }, [dispatch]);
+
+  // const handleChange = (key, value) => {
+  //   setSelectedFilters((prev) => ({ ...prev, [key]: value }));
+  // };
 
   const handleSearch = async () => {
     try {
@@ -55,8 +74,8 @@ const CatalogPage = () => {
     <div className={css.catalogWrapper}>
       {/* // FILTERS */}
       <div className={css.filterCont}>
-        <BrandsList brands={brandsList} />
-        <PriceList prices={prices} />
+        <BrandsList brands={brandsList} filtersList={filtersList} />
+        <PriceList prices={prices} filtersList={filtersList} />
         <CarMileage />
         <button type="button" className={css.searchBtn} onClick={handleSearch}>
           Search
