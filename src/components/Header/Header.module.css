@@ -1,7 +1,10 @@
-.header {
+.headerWrapper {
   border-bottom: 1px solid #f2f4f7;
-  padding: 24px 120px;
+  padding: 24px 0 24px;
   background-color: #f2f4f7;
+}
+
+.header {
   display: flex;
   justify-content: space-between;
 }

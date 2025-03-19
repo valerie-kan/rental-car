@@ -1,17 +1,21 @@
-.hero {
-  height: calc(100vh - 69px);
+.homePage {
   background: linear-gradient(-180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     url("../../assets/hero.jpg") no-repeat center/cover;
+}
+
+@media (min-resolution: 192dpi) {
+  .homePage {
+    background: linear-gradient(-180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+      url("../../assets/hero@2x.jpg") no-repeat center/cover;
+  }
+}
+
+.hero {
+  height: calc(100vh - 68px);
   color: #ffffff;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-}
-
-@media (min-resolution: 192dpi) {
-  .hero {
-    background: url("../../assets/hero@2x.jpg");
-  }
 }
 
 .heroInfo {

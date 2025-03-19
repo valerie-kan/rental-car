@@ -39,9 +39,14 @@
 
 .mainCarInfo {
   display: flex;
-  padding-right: 11px;
   justify-content: space-between;
   margin-bottom: 8px;
+}
+
+.carName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .carDetails {

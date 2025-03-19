@@ -20,7 +20,6 @@ const filterSlice = createSlice({
   reducers: {
     setFilters: (state, action) => {
       state.filters = { ...state.filters, ...action.payload };
-      console.log(state.filters);
     },
     resetFilters: (state) => {
       state.filters = initialState.filters;

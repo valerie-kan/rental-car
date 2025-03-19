@@ -1,24 +1,40 @@
 .carDetails {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  gap: 72px;
-  margin: 84px 120px;
-}
-
-.imgAndFormWrapper,
-.carInfoWrapper {
-  flex: 1;
-}
-
-.imgAndFormWrapper {
-  display: flex;
-  flex-direction: column;
+  margin: 84px 0 104px;
+  display: grid;
+  grid-template-areas:
+    "image"
+    "details"
+    "form";
+  grid-template-columns: 1fr;
   gap: 40px;
 }
 
 .imgCont {
-  max-width: 640px;
+  grid-area: image;
+}
+
+.formWrapper {
+  grid-area: form;
+}
+
+.carInfoWrapper {
+  grid-area: details;
+}
+
+@media screen and (min-width: 1440px) {
+  .carDetails {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "image details"
+      "form details";
+    column-gap: 72px;
+    row-gap: 40px;
+  }
+
+  .imgCont {
+    height: 512px;
+    width: 640px;
+  }
 }
 
 .img {

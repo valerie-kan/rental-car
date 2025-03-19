@@ -29,7 +29,7 @@ const CarItem = ({ car, toggleFavourite, isFavourite }) => {
       </div>
       {/* // CAR INFO */}
       <div className={css.mainCarInfo}>
-        <p>
+        <p className={css.carName}>
           {car.brand} <span style={{ color: "#3470ff" }}>{car.model}</span>,{" "}
           {car.year}
         </p>

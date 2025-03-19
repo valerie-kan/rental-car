@@ -7,20 +7,8 @@
 }
 
 :root {
-  font-family: "Manrope", "Inter", sans-serif;
-  width: 100%;
-  margin: 0 auto;
-  font-weight: 500;
-  line-height: 1.25;
-}
-
-body {
-  background-color: #ffffff;
-  color: #101828;
-}
-
-ul {
-  list-style: none;
+  --font-family: "Manrope", sans-serif;
+  --second-family: "Inter", sans-serif;
 }
 
 h1,

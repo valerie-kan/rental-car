@@ -16,6 +16,7 @@ import Input from "../../components/Input/Input";
 import Loader from "../../components/Loader/Loader";
 import AdditionalCarDetails from "../../components/AdditionalCarDetails/AdditionalCarDetails";
 import MainCarDetails from "../../components/MainCarDetails/MainCarDetails";
+import Container from "../../components/Container/Container";
 
 const INITIAL_VALUES = {
   name: "",
@@ -47,15 +48,16 @@ const CarDetailsPage = () => {
   };
 
   return (
-    <>
+    <Container>
       {isLoading && <Loader />}
       {car && (
         <div className={css.carDetails}>
           {/* // IMG */}
-          <div className={css.imgAndFormWrapper}>
-            <div className={css.imgCont}>
-              <img className={css.img} src={car.img} alt="Selected car photo" />
-            </div>
+          {/* <div className={css.imgAndFormWrapper}> */}
+          <div className={css.imgCont}>
+            <img className={css.img} src={car.img} alt="Selected car photo" />
+          </div>
+          <div className={css.formWrapper}>
             {/* // FORM */}
             <Formik
               initialValues={INITIAL_VALUES}
@@ -81,6 +83,7 @@ const CarDetailsPage = () => {
               </Form>
             </Formik>
           </div>
+          {/* </div> */}
           {/* // CAR INFO */}
           <div className={css.carInfoWrapper}>
             <MainCarDetails car={car} />
@@ -88,7 +91,7 @@ const CarDetailsPage = () => {
           </div>
         </div>
       )}
-    </>
+    </Container>
   );
 };
 

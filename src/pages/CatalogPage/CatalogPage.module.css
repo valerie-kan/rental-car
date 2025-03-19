@@ -1,9 +1,11 @@
 .catalogWrapper {
-  margin: 84px 120px;
+  margin-top: 84px;
+  margin-bottom: 124px;
 }
 
 .filterCont {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 16px;

@@ -16,6 +16,7 @@ import BrandsList from "../../components/BrandsList/BrandsList";
 import PriceList from "../../components/PriceList/PriceList";
 import CarMileage from "../../components/CarMileage/CarMileage";
 import Loader from "../../components/Loader/Loader";
+import Container from "../../components/Container/Container";
 
 const CatalogPage = () => {
   const carsList = useSelector(carSelectors.selectCars);
@@ -71,35 +72,41 @@ const CatalogPage = () => {
   };
 
   return (
-    <div className={css.catalogWrapper}>
-      {/* // FILTERS */}
-      <div className={css.filterCont}>
-        <BrandsList brands={brandsList} filtersList={filtersList} />
-        <PriceList prices={prices} filtersList={filtersList} />
-        <CarMileage />
-        <button type="button" className={css.searchBtn} onClick={handleSearch}>
-          Search
-        </button>
+    <Container>
+      <div className={css.catalogWrapper}>
+        {/* // FILTERS */}
+        <div className={css.filterCont}>
+          <BrandsList brands={brandsList} filtersList={filtersList} />
+          <PriceList prices={prices} filtersList={filtersList} />
+          <CarMileage />
+          <button
+            type="button"
+            className={css.searchBtn}
+            onClick={handleSearch}
+          >
+            Search
+          </button>
+        </div>
+        {/* // CARS LIST */}
+        {isLoading && <Loader />}
+        {!isLoading && carsList.length === 0 && (
+          <p className={css.noCarsMess}>
+            Sorry! We don't have any cars according to your search parameters
+          </p>
+        )}
+        <CarsList cars={carsList} />
+        {/* // LOAD MORE BTN */}
+        {page < totalPages && (
+          <button
+            type="button"
+            className={css.loadMoreBtn}
+            onClick={onLoadMoreClick}
+          >
+            Load more
+          </button>
+        )}
       </div>
-      {/* // CARS LIST */}
-      {isLoading && <Loader />}
-      {!isLoading && carsList.length === 0 && (
-        <p className={css.noCarsMess}>
-          Sorry! We don't have any cars according to your search parameters
-        </p>
-      )}
-      <CarsList cars={carsList} />
-      {/* // LOAD MORE BTN */}
-      {page < totalPages && (
-        <button
-          type="button"
-          className={css.loadMoreBtn}
-          onClick={onLoadMoreClick}
-        >
-          Load more
-        </button>
-      )}
-    </div>
+    </Container>
   );
 };
 

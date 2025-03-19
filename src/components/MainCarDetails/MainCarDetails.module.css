@@ -1,5 +1,11 @@
 .mainCarInfo {
-  margin-bottom: 68px;
+  margin-bottom: 40px;
+}
+
+@media screen and (min-width: 1440px) {
+  .mainCarInfo {
+    margin-bottom: 68px;
+  }
 }
 
 .carTitle {
